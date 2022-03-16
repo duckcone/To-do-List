@@ -1,0 +1,26 @@
+const getList = function(todoItems){
+  itemsList.innerHTML ="";
+  if(todoItems.length >0){
+    // we have task to add into the list
+    todoItems.forEach((item) =>{
+      
+      const iconClass = item.isDone
+                ? "bi-check-circle-fill"
+                : "bi-check-circle";
+
+      let liTag=`
+      <li class="list-group-item d-flex justify-content-between align-items-center">              
+      <span class="title" data-time=${item.addedAt}>${item.name}</span>      
+          <span>
+            <a href="#" data-done><i class="bi ${iconClass}  green"></i></a>
+            <a href="#" data-edit><i class="bi bi-pencil-square blue"></i></a>
+            <a href="#" data-delete><i class="bi bi-x-circle red"></i></a>
+          </span>
+        </li>`;
+            itemsList.insertAdjacentHTML("beforeend",liTag);
+            handleItem(item);
+     
+    });
+  }
+  
+}
