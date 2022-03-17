@@ -1,4 +1,3 @@
-
 //select elements in Dom
 const form = document.querySelector("#itemForm");
 const itemInput = document.querySelector("#itemInput"); //取得id為itmeInput的標籤值 
@@ -269,10 +268,21 @@ document.addEventListener("DOMContentLoaded", () =>{
                 //執行時速度會比較慢! 可用print檢測
                 alertMessage("Item added success", "alert-success");
             }
-            
-           
-            
+                
         }
+
+        // filters.forEach((tab) => { //將所有切換的狀態寫入tab
+        //         e.preventDefault();
+        //         const tabType = tab.getAttribute("data-type"); //取得被點擊的tab的datea-type值
+        //         document.querySelectorAll(".nav-link").forEach((nav) => { //先選擇所有class含有nav-link的標籤
+        //             nav.classList.remove("active"); //移除所有nav的active偽元素狀態
+        //         });
+        //         tab.querySelector('[all-items]').firstElementChild.classList.add("active"); //再將選擇到的tab寫入active屬性
+        //         getItemsFilter(tabType); //同時將選擇到的tab的tabType(date-type: all, do, done, deleted)值傳入detItmeFilter
+        //         document.querySelector("#tabValue").value = tabType; //最後將tabType寫入id為tabValue的標籤(標籤狀態為hidden)
+            
+        // });
+
          // getList(todoItems);
         getLocalStorage(); //每次點擊都取得localstorage的資料
         
@@ -295,4 +305,3 @@ document.addEventListener("DOMContentLoaded", () =>{
     
     console.log("getlocal: ", todoItems);
 });
-
