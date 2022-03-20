@@ -78,12 +78,14 @@ const handleItem = function(itemData){
                 e.preventDefault();
                 
                 const itemIndex = todoItems.indexOf(itemData);
-                const currentItem = todoItems[itemIndex];
+                const currentItem = todoItems[itemIndex]; 
+
+
                 
                 //符號變色
                 const currentClass = currentItem.isDone
-                            ? "bi-check-circle-fill"
-                            : "bi-check-circle";
+                            ? "bi-clipboard-check-fill"
+                            : "bi-clipboard-check";
 
                 currentItem.isDone = currentItem.isDone ? false : true; //如果已經完成，點擊過後變成未完成
 
@@ -94,14 +96,15 @@ const handleItem = function(itemData){
                 
                 //設定每一個 item 的 icon 的變化
                 const iconClass = currentItem.isDone
-                            ? "bi-check-circle-fill"
-                            : "bi-check-circle";
+                            ? "bi-clipboard-check-fill"
+                            : "bi-clipboard-check";
 
-                this.firstElementChild.classList.replace(currentClass, iconClass); //將currentClass替換為iconClass內的文字
+                this.firstElementChild.classList.replace(currentClass, iconClass); //將符合currentClass的文字替換為iconClass內的文字
                 
-                console.log("currentClass: ", currentClass);
-                console.log("iconClass: ", iconClass);
-                console.log("currentItem.isDone: ", currentItem.isDone);
+                // console.log("this is: ",this.firstElementChild.classList);
+                // console.log("currentClass: ", currentClass);
+                // console.log("iconClass: ", iconClass);
+                // console.log("currentItem.isDone: ", currentItem.isDone);
                 //切換 tab
                 const filterType = document.querySelector("#tabValue").value;
                 getItemsFilter(filterType);        
@@ -132,33 +135,60 @@ const handleItem = function(itemData){
                 //     alertMessage("Item has been deleted", "alert-success");                    
                 // }
 
-                if(confirm("Are you sure you want to remove this item?"))
+                const deleteItmeIndex = todoItems.indexOf(itemData);
+                const currentItem = todoItems[deleteItmeIndex];
+
+                if(currentItem.isDeleted)
                 {
-                    const deleteItmeIndex = todoItems.indexOf(itemData);
-                    const currentItem = todoItems[deleteItmeIndex];
-
                     const currentClass = currentItem.isDeleted
-                            ?"bi-x-circle-fill"
-                            :"bi-x-circle";
+                                ?"bi-trash3-fill"
+                                :"bi-trash3e";
 
-                    currentItem.isDeleted = currentItem.isDeleted ? false : true;
+                        currentItem.isDeleted = currentItem.isDeleted ? false : true;
 
-                    todoItems.splice(deleteItmeIndex, 1, currentItem);
-                    setLocalStorage(todoItems);
+                        todoItems.splice(deleteItmeIndex, 1, currentItem);
+                        setLocalStorage(todoItems);
 
-                    const deleteiconClass = currentItem.isDeleted
-                            ? "bi-x-circle-fill"
-                            : "bi-x-circle";
+                        const deleteiconClass = currentItem.isDeleted
+                                ? "bi-trash3-fill"
+                                : "bi-trash3";
 
-                    this.firstElementChild.classList.replace(currentClass, deleteiconClass); //將currentClass替換為iconClass內的文字
-                
-                    //切換Tab
-                    const filterType = document.querySelector("#tabValue").value;
-                    getItemsFilter(filterType);
+                        this.firstElementChild.classList.replace(currentClass, deleteiconClass); //將currentClass替換為iconClass內的文字
                     
-
-
+                        //切換Tab
+                        const filterType = document.querySelector("#tabValue").value;
+                        getItemsFilter(filterType);
                 }
+                else
+                {
+                    if(confirm("Are you sure you want to remove this item?"))
+                    {
+                        
+                        const currentClass = currentItem.isDeleted
+                                ?"bi-trash3-fill"
+                                :"bi-trash3e";
+
+                        currentItem.isDeleted = currentItem.isDeleted ? false : true;
+
+                        todoItems.splice(deleteItmeIndex, 1, currentItem);
+                        setLocalStorage(todoItems);
+
+                        const deleteiconClass = currentItem.isDeleted
+                                ? "bi-trash3-fill"
+                                : "bi-trash3";
+
+                        this.firstElementChild.classList.replace(currentClass, deleteiconClass); //將currentClass替換為iconClass內的文字
+                    
+                        //切換Tab
+                        const filterType = document.querySelector("#tabValue").value;
+                        getItemsFilter(filterType);
+                        
+
+
+                    }
+                }
+
+                
 
             });
 
@@ -175,12 +205,12 @@ const getList = function(todoItems){
         todoItems.forEach((item) =>{ //拜訪todoItmes的每一個項目並寫入item，同時進行函式操作
 
             const iconClass = item.isDone
-                ? "bi-check-circle-fill"
-                : "bi-check-circle";
+                ? "bi-clipboard-check-fill"
+                : "bi-clipboard-check";
 
             const deleteIconClass = item.isDeleted
-                ? "bi-x-circle-fill"
-                : "bi-x-circle";
+                ? "bi-trash3-fill"
+                : "bi-trash3";
 
             
             let liTag = `
@@ -233,13 +263,12 @@ const getLocalStorage = function(){
     
 }
 
-document.addEventListener("DOMContentLoaded", () =>{
-    var tabType;
+document.addEventListener("DOMContentLoaded", () =>{ //當網頁打開就會執行
 
-    filters.forEach((tab) => { //將所有切換的狀態寫入tab
+    filters.forEach((tab) => { //將所有tab切換的狀態寫入tab變數
         tab.addEventListener('click', function (e) {
             e.preventDefault();
-            tabType = this.getAttribute("data-type"); //取得被點擊的tab的datea-type值
+            const tabType = this.getAttribute("data-type"); //取得被點擊的tab的datea-type值
 
             document.querySelectorAll(".nav-link").forEach((nav) => { //先選擇所有class含有nav-link的標籤
                 nav.classList.remove("active"); //移除所有nav的active偽元素狀態
@@ -290,7 +319,7 @@ document.addEventListener("DOMContentLoaded", () =>{
         }
          // getList(todoItems);
         getLocalStorage(); //每次點擊都取得localstorage的資料
-        getItemsFilter(tabType);
+        getItemsFilter(document.querySelector("#tabValue").value);
         itemInput.value=""
     });
     
