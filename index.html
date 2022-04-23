@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" >
+<html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>CBB108018 - 郭明穎</title>
@@ -13,19 +14,19 @@
     <div class="container">
         <!-- setting row   -->
         <div class="row">
-          <!-- setting col     -->
-            <div class="col mx-auto col-md-8 mt-3 text-center"> 
-            <!-- setting alert message on the top of the page when add a list to do  -->
+            <!-- setting col     -->
+            <div class="col mx-auto col-md-8 mt-3 text-center">
+                <!-- setting alert message on the top of the page when add a list to do  -->
                 <div class="alert align-items-center" id="message"></div>
-            
+
                 <form id="itemForm">
                     <h3 class="text-primary fs-1">TO DO LIST</h3>
                     <div class="input-group mb-3">
                         <input type="text" class="form-control" id="itemInput" value="" placeholder="Please enter a task...">
                         <button class="btn btn-outline-primary">ADD ITEM</button>
-                    </div> 
+                    </div>
                 </form>
-            
+
                 <ul class="nav nav-tabs">
                     <li class="nav-item" data-type="all" all-items>
                         <a class="nav-link active" href="#">All</a>
@@ -38,23 +39,23 @@
                     </li>
                     <li class="nav-item" data-type="deleted">
                         <a class="nav-link" href="#">Deleted</a>
-                    </li> 
+                    </li>
                 </ul>
-                
+
                 <ul class="list-group list-group-flush" id="itemsList">
-                <!-- Using JS to show list -->
+                    <!-- Using JS to show list -->
                 </ul>
                 <input type="hidden" id="objIndex" value="">
                 <input type="hidden" id="tabValue" value="all">
 
 
-      
+
             </div>
-          
+
         </div>
     </div>
 
-    <script  src="./script.js"></script>
+    <script src="./script.js"></script>
 
 
 </body>
